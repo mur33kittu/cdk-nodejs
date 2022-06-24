@@ -2,11 +2,12 @@
   "name": "cdk-app",
   "version": "0.1.0",
   "scripts": {
-    "build": "tsc && npm run cdk",
+    "build": "tsc && cdk bootstrap && npm run cdk",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk synth",
     "deploy": "npm run build && cdk deploy",
+    "justdeploy": "cdk deploy",
     "destroy": "cdk destroy"
   },
   "devDependencies": {

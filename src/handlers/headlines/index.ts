@@ -3,9 +3,10 @@ import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import axios from 'axios';
 
 exports.handler = async (event: APIGatewayProxyEventV2, context: APIGatewayProxyResultV2) => {
-    const country = 'US';
-    const url = process.env.newsApiBaseUrl + `?country=${country}&apiKey=77291c5dc4314be788ebc3591ea7d40c`;
-    const headLines = getHeadLines(url);
+    const country = event.pathParameters?.country || 'us';
+    const url = process.env.newsApiBaseUrl + `top-headlines?country=${country}&apiKey=77291c5dc4314be788ebc3591ea7d40c`;
+    console.log(url);
+    const headLines = await getHeadLines(url);
     console.log(event, context);
 
     return {
