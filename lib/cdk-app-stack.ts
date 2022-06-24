@@ -50,7 +50,7 @@ export class CdkAppStack extends cdk.Stack {
       description: 'lambda layer',
     });
 
-    // 👇 define GET todos function
+    // 👇 define GET function
     const headLinesLambda = new lambda.Function(this, 'headlines', {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'headlines.handler',
@@ -59,13 +59,26 @@ export class CdkAppStack extends cdk.Stack {
       environment: { newsApiBaseUrl: apiBaseUrl.default }
     });
 
-    // 👇 add a /todos resource
+    const everythingLambda = new lambda.Function(this, 'everything', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'everything.handler',
+      code: lambda.Code.fromAsset(join(__dirname, '../dist/src/handlers')),
+      layers: [myLayers],
+      environment: { newsApiBaseUrl: apiBaseUrl.default }
+    });
+
+    // 👇 add a / resource
     const headlines = api.root.addResource('headlines');
     const country = headlines.addResource('{country}');
+    const everything = api.root.addResource('everything');
+    const searchString = everything.addResource('{searchString}');
 
     // 👇 integrate GET / with lambdas
     country.addMethod('GET', new apigateway.LambdaIntegration(headLinesLambda, { proxy: true }));
     headlines.addMethod('GET', new apigateway.LambdaIntegration(headLinesLambda, { proxy: true }));
+
+    everything.addMethod('GET', new apigateway.LambdaIntegration(everythingLambda, { proxy: true }));
+    searchString.addMethod('GET', new apigateway.LambdaIntegration(everythingLambda, { proxy: true }));
 
     // 👇 create an Output for the API URL
     new cdk.CfnOutput(this, 'apiUrl', { value: api.url });
