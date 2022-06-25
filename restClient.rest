@@ -1,1 +1,10 @@
 GET http://localhost:3000/headlines/us HTTP/1.1
+
+###
+GET http://localhost:3000/everything/india HTTP/1.1
+###
+
+GET  https://2soehekin9.execute-api.us-east-1.amazonaws.com/dev/headlines/us HTTP/1.1
+
+###
+GET  https://2soehekin9.execute-api.us-east-1.amazonaws.com/dev/everything/india HTTP/1.1
