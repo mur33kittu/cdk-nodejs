@@ -8,10 +8,10 @@ export class CdkAppStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id);
 
-    const apiBaseUrl = new cdk.CfnParameter(this, "newsApiURL", {
-      default: "https://newsapi.org/v2/",
-      noEcho: false
-    })
+    // const apiBaseUrl = new cdk.CfnParameter(this, "newsApiURL", {
+    //   default: "https://newsapi.org/v2/",
+    //   noEcho: false
+    // })
 
     const api = new apigateway.RestApi(this, 'api', {
       description: 'newsApi',
@@ -32,7 +32,7 @@ export class CdkAppStack extends cdk.Stack {
       },
     });
 
-    const packages = ["asynckit", "axios", "combined-stream", "delayed-stream", "follow-stream", "form-data", "mime-db", "mime-types", "node-gyp-build", "follow-redirects"];
+    const packages = ["ts-newsapi"];
     const nodeModulesPath = join(__dirname, "../node_modules");
     const buildPath = join(__dirname, "../dist");
     for (const packageName of packages) {
@@ -56,7 +56,7 @@ export class CdkAppStack extends cdk.Stack {
       handler: 'headlines.handler',
       code: lambda.Code.fromAsset(join(__dirname, '../dist/src/handlers')),
       layers: [myLayers],
-      environment: { newsApiBaseUrl: apiBaseUrl.default }
+      // environment: { newsApiBaseUrl: apiBaseUrl.default }
     });
 
     const everythingLambda = new lambda.Function(this, 'everything', {
@@ -64,7 +64,7 @@ export class CdkAppStack extends cdk.Stack {
       handler: 'everything.handler',
       code: lambda.Code.fromAsset(join(__dirname, '../dist/src/handlers')),
       layers: [myLayers],
-      environment: { newsApiBaseUrl: apiBaseUrl.default }
+      // environment: { newsApiBaseUrl: apiBaseUrl.default }
     });
 
     // 👇 add a / resource

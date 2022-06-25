@@ -3,6 +3,10 @@
     "target": "ES2018",
     "module": "commonjs",
     "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@fetch/": ["../../common/*"]
+    },
     "lib": [
       "es2018",
       "DOM"
@@ -28,6 +32,7 @@
   "exclude": [
     "node_modules",
     "cdk.out",
-    "./dist/**/*"
+    "bin",
+    "lib"
   ]
 }

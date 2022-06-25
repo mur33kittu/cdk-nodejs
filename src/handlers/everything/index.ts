@@ -1,14 +1,11 @@
 
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
-import axios from 'axios';
+import { getEverything } from "../fetch";
 
 exports.handler = async (event: APIGatewayProxyEventV2, context: APIGatewayProxyResultV2) => {
-    const searchString = event.pathParameters?.searchString || 'bitcoin';
-    let url = process.env.newsApiBaseUrl + "everything";
-    const apiKey = "&apiKey=77291c5dc4314be788ebc3591ea7d40c";
-    url += `?q=${searchString}` + apiKey
-    console.log(url);
-    const everythingData = await getEverything(url);
+    const searchString = event.pathParameters?.searchString;
+    console.log(searchString);
+    const everythingData = await getEverything(searchString);
     console.log(event, context);
 
     return {
@@ -16,25 +13,3 @@ exports.handler = async (event: APIGatewayProxyEventV2, context: APIGatewayProxy
         statusCode: 200,
     };
 };
-
-const getEverything = async (url: string) => {
-    try {
-        const { data, status } = await axios.get(url, {
-            headers: {
-                Accept: 'application/json',
-            },
-        });
-        console.log('response status is: ', status);
-        return data;
-    }
-    catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log('error message: ', error.message);
-            return error.message;
-        }
-        else {
-            console.log('unexpected error: ', error);
-            return 'An unexpected error occurred';
-        }
-    }
-}
