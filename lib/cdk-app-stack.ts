@@ -22,7 +22,7 @@ export class CdkAppStack extends cdk.Stack {
       defaultCorsPreflightOptions: {
         allowMethods: apigateway.Cors.ALL_METHODS,
         allowCredentials: true,
-        allowOrigins: apigateway.Cors.ALL_ORIGINS
+        allowOrigins: ['*'],
       },
     });
 
