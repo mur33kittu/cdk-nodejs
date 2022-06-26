@@ -35,5 +35,11 @@
     "node-gyp-build": "^4.4.0",
     "source-map-support": "^0.5.21",
     "ts-newsapi": "^1.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ]
   }
 }

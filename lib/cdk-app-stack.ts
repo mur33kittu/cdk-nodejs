@@ -20,15 +20,9 @@ export class CdkAppStack extends cdk.Stack {
       },
       // 👇 enable CORS
       defaultCorsPreflightOptions: {
-        allowHeaders: [
-          'Content-Type',
-          'X-Amz-Date',
-          'Authorization',
-          'X-Api-Key',
-        ],
-        allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        allowMethods: apigateway.Cors.ALL_METHODS,
         allowCredentials: true,
-        allowOrigins: ['http://localhost:3000', 'https://d1srx3bjgkscfs.cloudfront.net'],
+        allowOrigins: apigateway.Cors.ALL_ORIGINS
       },
     });
 
