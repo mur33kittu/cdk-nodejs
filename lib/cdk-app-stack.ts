@@ -20,13 +20,7 @@ export class CdkAppStack extends cdk.Stack {
       },
       // 👇 enable CORS
       defaultCorsPreflightOptions: {
-        allowHeaders: [
-          'Content-Type',
-          'X-Amz-Date',
-          'Authorization',
-          'X-Api-Key',
-        ],
-        allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        allowMethods: apigateway.Cors.ALL_METHODS,
         allowCredentials: true,
         allowOrigins: ['*'],
       },

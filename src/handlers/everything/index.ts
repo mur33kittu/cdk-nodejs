@@ -4,9 +4,7 @@ import { getEverything } from "../fetch";
 
 exports.handler = async (event: APIGatewayProxyEventV2, context: APIGatewayProxyResultV2) => {
     const searchString = event.pathParameters?.searchString;
-    console.log(searchString);
     const everythingData = await getEverything(searchString);
-    console.log(event, context);
 
     return {
         body: JSON.stringify(everythingData),

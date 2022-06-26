@@ -8,7 +8,7 @@ export const getEverything = async (searchString: string = 'bitcoin') => {
             q: searchString,
             qInTitle: 'stock',
             language: 'en',
-            sortBy: 'relevancy'
+            sortBy: 'relevancy',
         })
         return data;
     }
