@@ -28,7 +28,7 @@ export class CdkAppStack extends cdk.Stack {
         ],
         allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
         allowCredentials: true,
-        allowOrigins: ['http://localhost:3000'],
+        allowOrigins: ['http://localhost:3000', 'https://d1srx3bjgkscfs.cloudfront.net'],
       },
     });
 
